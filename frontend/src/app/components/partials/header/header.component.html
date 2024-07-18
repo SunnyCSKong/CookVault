@@ -1,0 +1,20 @@
+<header class="">
+  <div class="header-container">
+    <a href="/" class="logo">Cook Vault</a>
+    <nav class="">
+      <ul class="">
+        <li *ngIf="!isAuth">
+          <a href="/login">Login</a>
+          <a href="/register" class="">Register</a>
+        </li>
+        <li class="profile-container" *ngIf="isAuth">
+          <a routerLink="/dashboard" class="">{{ user.name }}</a>
+          <div class="menu">
+            <a (click)="logout()">Logout</a>
+          </div>
+        </li>
+        <a href="/cart-page" *ngIf="isAuth"> Saved Recipes </a>
+      </ul>
+    </nav>
+  </div>
+</header>

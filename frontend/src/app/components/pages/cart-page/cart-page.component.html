@@ -1,0 +1,34 @@
+<app-title title="Saved Recipes" margin="1.5rem 0 0 2.5rem"></app-title>
+<app-not-found
+  [visible]="!cart || !cart.items.length"
+  notFoundMessage="You have no recipes saved"
+  resetLinkText="Back To Homepage"
+>
+</app-not-found>
+<div class="container">
+  <ul>
+    <li *ngFor="let cartItem of cart.items">
+      <div class="">
+        <img [src]="cartItem.recipe.imageUrl" [alt]="cartItem.recipe.name" />
+      </div>
+      <div class="">
+        <a routerLink="/recipe/{{ cartItem.recipe.id }}">{{
+          cartItem.recipe.name
+        }}</a>
+      </div>
+      <button class="remove-btn" (click)="removeFromCart(cartItem)">
+        Remove
+      </button>
+    </li>
+  </ul>
+  <app-title title="Ingredients needed:"></app-title>
+  <ul>
+    <li *ngFor="let cartItem of cart.items">
+      <div>
+        <li *ngFor="let cartIngredient of cartItem.recipe.ingredients">
+          {{ cartIngredient }}
+        </li>
+      </div>
+    </li>
+  </ul>
+</div>

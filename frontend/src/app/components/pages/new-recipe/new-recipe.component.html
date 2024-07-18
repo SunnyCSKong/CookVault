@@ -1,0 +1,84 @@
+<div class="container">
+  <app-title title="New Recipe"></app-title>
+  <form [formGroup]="newRecipe" (ngSubmit)="onSubmit()">
+    <text-input
+      [control]="fc['name']"
+      [showErrorsWhen]="isSubmitted"
+      label="Name"
+    ></text-input>
+    <text-input
+      [control]="fc['imageUrl']"
+      [showErrorsWhen]="isSubmitted"
+      label="Image URL"
+    ></text-input>
+    <text-input
+      [control]="fc['link']"
+      [showErrorsWhen]="isSubmitted"
+      label="Link"
+    ></text-input>
+    <text-input
+      [control]="fc['cookTime']"
+      [showErrorsWhen]="isSubmitted"
+      label="Cook Time"
+    ></text-input>
+    <text-input
+      [control]="fc['origin']"
+      [showErrorsWhen]="isSubmitted"
+      label="Place of Origin"
+    ></text-input>
+    <div class="bottom-container">
+      <div class="instructions-container">
+        <label for="instructions">Instructions:</label>
+        <div formArrayName="instructions">
+          <div *ngFor="let instruction of instructions.controls; let i = index">
+            <input [formControlName]="i" />
+            <button type="button" (click)="removeInstruction(i)">X</button>
+            <div *ngIf="instruction.invalid && instruction.touched">
+              Instruction is required
+            </div>
+          </div>
+
+          <div
+            *ngIf="
+              (instructions.invalid && instructions.touched) ||
+              (instructions.invalid && this.isSubmitted && instructions.touched)
+            "
+          >
+            This field cannot be empty
+          </div>
+          <button type="button" class="add-button" (click)="addInstruction()">
+            Add Instruction
+          </button>
+        </div>
+      </div>
+
+      <div class="ingredients-container">
+        <label for="ingredients">Ingredients:</label>
+        <div formArrayName="ingredients">
+          <div *ngFor="let ingredient of ingredients.controls; let i = index">
+            <input [formControlName]="i" />
+            <button type="button" (click)="removeIngredient(i)">X</button>
+            <div *ngIf="ingredient.invalid && ingredient.touched">
+              Ingredient is required
+            </div>
+          </div>
+
+          <div
+            *ngIf="
+              (ingredients.invalid && ingredients.touched) ||
+              (ingredients.invalid && this.isSubmitted && ingredients.touched)
+            "
+          >
+            This field cannot be empty
+          </div>
+          <button type="button" class="add-button" (click)="addIngredient()">
+            Add Ingredient
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button type="submit" class="submitButton">Submit</button>
+    </div>
+  </form>
+</div>

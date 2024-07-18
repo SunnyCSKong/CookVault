@@ -1,0 +1,60 @@
+<app-not-found
+  [visible]="!recipe"
+  notFoundMessage="Recipe Not Found"
+  resetLinkText="Back To Homepage"
+>
+</app-not-found>
+<div *ngIf="recipe" class="container">
+  <img [src]="recipe.imageUrl" [alt]="recipe.name" />
+  <div class="details">
+    <div class="header">
+      <span class="name" *ngIf="recipe.link; else elseBlock">
+        <a [href]="recipe.link" class="">{{ recipe.name }}</a>
+      </span>
+      <ng-template #elseBlock>
+        <span class="name">{{ recipe.name }}</span>
+      </ng-template>
+    </div>
+
+    <div class="origins">
+      <span>
+        {{ recipe.origin }}
+      </span>
+    </div>
+    <div class="cook-time">
+      <span>
+        Time to cook: <strong>{{ recipe.cookTime }}</strong>
+      </span>
+    </div>
+    <div class="ingredients">
+      <span *ngIf="recipe.ingredients && recipe.ingredients.length > 0"
+        >Ingredients:</span
+      >
+      <li *ngFor="let ingredient of recipe.ingredients">
+        <div class="content">
+          {{ ingredient }}
+        </div>
+      </li>
+    </div>
+    <br />
+    <div class="instructions">
+      <span *ngIf="recipe.instructions && recipe.instructions.length > 0"
+        >Instructions:</span
+      >
+      <ol>
+        <li *ngFor="let step of recipe.instructions">
+          <div class="content">
+            {{ step }}
+          </div>
+        </li>
+      </ol>
+
+      <div class="" *ngIf="isAuth()">
+        <button (click)="addToCart()">Add to Saved Recipes</button><br /><br />
+        <button (click)="addToUser()" *ngIf="!userHasRecipe">
+          Add to Home Page
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

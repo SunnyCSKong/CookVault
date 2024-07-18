@@ -1,0 +1,49 @@
+<div class="no-user" *ngIf="!isAuth">
+  <app-title title="Welcome to Cook Vault"></app-title>
+  <p class="">Save the recipes you love to your profile.</p>
+  <p class="">
+    Add them to your cart and see the ingredients you need to buy. All in one
+    page.
+  </p>
+  <p class="">
+    Did a friend send you a recipe? Sign in or register and add that recipe to
+    your profile now!
+  </p>
+  <p class="">
+    Get started by registering and clicking the + button! If you've already
+    registered, sign in!
+  </p>
+</div>
+<app-search *ngIf="isAuth"></app-search>
+<app-not-found
+  *ngIf="isAuth"
+  notFoundMessage="No recipes saved on homepage."
+  resetLinkText="Add a recipe"
+  [visible]="!recipes || !recipes.length"
+></app-not-found>
+<div class="div"></div>
+<div *ngIf="isAuth">
+  <ul>
+    <li *ngFor="let recipe of recipes">
+      <a routerLink="/recipe/{{ recipe.id }}">
+        <img [src]="recipe.imageUrl" [alt]="recipe.name" class="" />
+        <div class="content">
+          <div class="name">
+            {{ recipe.name }}
+          </div>
+          <div class="recipe-footer">
+            <div class="origins">
+              <span>{{ recipe.origin }}</span>
+            </div>
+            <div class="cook-time"><span>🕒</span>{{ recipe.cookTime }}</div>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <div class="add-container">
+    <a href="/new-recipe" class="">
+      <button class="add-recipe">+</button>
+    </a>
+  </div>
+</div>
