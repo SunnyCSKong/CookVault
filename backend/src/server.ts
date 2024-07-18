@@ -24,7 +24,7 @@ app.use("/api/recipes", recipeRouter);
 
 app.use("/api/users", userRouter);
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public", "browser")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "browser", "index.html"));
 });
